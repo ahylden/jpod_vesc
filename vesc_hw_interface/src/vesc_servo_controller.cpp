@@ -188,38 +188,6 @@ void VescServoController::control()
 
   double safety_target_position = target_position_;
 
-  auto rate = std::accumulate(limit_deque_.begin(), limit_deque_.end(), 0.0) / limit_deque_.size();
-  if (error > 0 && rate >= limit_ratio_)
-  {
-    ROS_WARN_THROTTLE(10, "[Servo Control] Upper limit signal received. Stop servo.");
-    safety_target_position = sens_position_;
-    error = 0.0;
-    target_vel = 0.0;
-    // Wait for target position convergence
-    if (std::fabs(target_position_ - target_position_previous_) < std::numeric_limits<double>::epsilon() &&
-        std::fabs(target_position_ - upper_limit_position_) < limit_margin_)
-    {
-      zero_position_ = sens_position_ + zero_position_ - upper_limit_position_;
-      sens_position_ = upper_limit_position_;
-      ROS_INFO_THROTTLE(10, "[Servo Control] Reset position to %f.", upper_limit_position_);
-    }
-  }
-  else if (error < 0 && rate <= -limit_ratio_)
-  {
-    ROS_WARN_THROTTLE(10, "[Servo Control] Lower limit signal received. Stop servo.");
-    safety_target_position = sens_position_;
-    error = 0.0;
-    target_vel = 0.0;
-    // Wait for target position convergence
-    if (std::fabs(target_position_ - target_position_previous_) < std::numeric_limits<double>::epsilon() &&
-        std::fabs(target_position_ - lower_limit_position_) < limit_margin_)
-    {
-      zero_position_ = sens_position_ + zero_position_ - lower_limit_position_;
-      sens_position_ = lower_limit_position_;
-      ROS_INFO_THROTTLE(10, "[Servo Control] Reset position to %f.", lower_limit_position_);
-    }
-  }
-
   if (std::fabs(error) < position_resolution_)
   {
     error = 0.0;
@@ -249,6 +217,36 @@ void VescServoController::control()
 
   // limit duty value
   u = std::clamp(u, -duty_limiter_, duty_limiter_);
+
+  auto rate = std::accumulate(limit_deque_.begin(), limit_deque_.end(), 0.0) / limit_deque_.size();
+  if (u > 0 && rate >= limit_ratio_)
+  {
+    ROS_WARN_THROTTLE(10, "[Servo Control] Upper limit signal received. Stop servo.");
+    safety_target_position = sens_position_;
+    u = 0.0;
+    // Wait for target position convergence
+    if (std::fabs(target_position_ - target_position_previous_) < std::numeric_limits<double>::epsilon() &&
+        std::fabs(target_position_ - upper_limit_position_) < limit_margin_)
+    {
+      zero_position_ = sens_position_ + zero_position_ - upper_limit_position_;
+      sens_position_ = upper_limit_position_;
+      ROS_INFO_THROTTLE(10, "[Servo Control] Reset position to %f.", upper_limit_position_);
+    }
+  }
+  else if (u < 0 && rate <= -limit_ratio_)
+  {
+    ROS_WARN_THROTTLE(10, "[Servo Control] Lower limit signal received. Stop servo.");
+    safety_target_position = sens_position_;
+    u = 0.0;
+    // Wait for target position convergence
+    if (std::fabs(target_position_ - target_position_previous_) < std::numeric_limits<double>::epsilon() &&
+        std::fabs(target_position_ - lower_limit_position_) < limit_margin_)
+    {
+      zero_position_ = sens_position_ + zero_position_ - lower_limit_position_;
+      sens_position_ = lower_limit_position_;
+      ROS_INFO_THROTTLE(10, "[Servo Control] Reset position to %f.", lower_limit_position_);
+    }
+  }
 
   // updates previous data
   target_position_previous_ = target_position_;
