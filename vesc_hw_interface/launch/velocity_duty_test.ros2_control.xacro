@@ -3,12 +3,12 @@
   <ros2_control name="vesc" type="actuator">
     <hardware>
       <plugin>vesc_hw_interface/VescHwInterface</plugin>
-      <param name="port">/dev/ttyVESC_left</param>
+      <param name="port">/dev/ttyVESC_ACM0</param>
       <param name="gear_ratio">0.230769</param>
       <param name="torque_const">1.0</param>
       <param name="num_hall_sensors">3</param>
       <param name="screw_lead">1.0</param>
-      <param name="num_rotor_poles">20</param>
+      <param name="num_rotor_poles">14</param>
       <param name="servo/Kp">0.005</param>
       <param name="servo/Ki">0.005</param>
       <param name="servo/Kd">0.0025</param>

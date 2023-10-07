@@ -51,7 +51,7 @@ def launch_setup(context: LaunchContext, *args, **kwargs) -> list:
                                             executable='spawner',
                                             output='both',
                                             arguments=["--controller-manager", "controller_manager",
-                                                       'joint_velocity_controller'])])
+                                                       'diff_cont'])])
 
     return [control_node, controllers]
 
