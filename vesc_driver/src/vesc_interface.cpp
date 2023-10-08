@@ -34,7 +34,7 @@
  ********************************************************************/
 
 #include "vesc_driver/vesc_interface.hpp"
-#include <transport_drivers/serial_driver/include/serial_driver/serial_driver.hpp>
+#include <serial_driver/serial_driver.hpp>
 #include <rclcpp/rclcpp.hpp>
 
 namespace vesc_driver
