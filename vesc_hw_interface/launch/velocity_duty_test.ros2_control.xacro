@@ -9,7 +9,7 @@
       <param name="num_hall_sensors">3</param>
       <param name="screw_lead">1.0</param>
       <param name="num_rotor_poles">14</param>
-      <param name="servo/Kp">0.03</param>
+      <!--<param name="servo/Kp">0.03</param>
       <param name="servo/Ki">0.04</param>
       <param name="servo/Kd">0.002</param>
       <param name="servo/i_clamp">1.0</param>
@@ -22,18 +22,18 @@
       <param name="servo/calibration_position">0.0</param>
       <param name="servo/enable_smooth_diff">true</param>
       <param name="servo/smooth_diff/max_sample_sec">1.0</param>
-      <param name="servo/smooth_diff/max_smooth_step">10</param>
+      <param name="servo/smooth_diff/max_smooth_step">10</param> !-->
       <param name="motor/Kp">0.03</param>
       <param name="motor/Ki">0.04</param>
       <param name="motor/Kd">0.002</param>
-      <param name="motor/i_clamp">1.0</param>
+      <!--<param name="motor/i_clamp">1.0</param>
       <param name="motor/duty_limiter">1.0</param>
       <param name="motor/antiwindup">true</param>
       <param name="motor/control_rate">100.0</param>
       <param name="motor/enable_smooth_diff">true</param>
       <param name="motor/smooth_diff/max_sample_sec">0.2</param>
-      <param name="motor/smooth_diff/max_smooth_step">10</param>
-      <param name="command_mode">velocity_duty</param>
+      <param name="motor/smooth_diff/max_smooth_step">10</param> !-->
+      <param name="command_mode">velocity</param>
       <param name="joint_type">revolute</param>
     </hardware>
     <joint name="vesc_joint">
@@ -64,7 +64,7 @@
       <param name="num_hall_sensors">3</param>
       <param name="screw_lead">1.0</param>
       <param name="num_rotor_poles">14</param>
-      <param name="servo/Kp">0.03</param>
+      <!--<param name="servo/Kp">0.03</param>
       <param name="servo/Ki">0.04</param>
       <param name="servo/Kd">0.002</param>
       <param name="servo/i_clamp">1.0</param>
@@ -77,18 +77,18 @@
       <param name="servo/calibration_position">0.0</param>
       <param name="servo/enable_smooth_diff">true</param>
       <param name="servo/smooth_diff/max_sample_sec">1.0</param>
-      <param name="servo/smooth_diff/max_smooth_step">10</param>
+      <param name="servo/smooth_diff/max_smooth_step">10</param> !-->
       <param name="motor/Kp">0.03</param>
       <param name="motor/Ki">0.04</param>
       <param name="motor/Kd">0.002</param>
-      <param name="motor/i_clamp">1.0</param>
+      <!--<param name="motor/i_clamp">1.0</param>
       <param name="motor/duty_limiter">1.0</param>
       <param name="motor/antiwindup">true</param>
       <param name="motor/control_rate">100.0</param>
       <param name="motor/enable_smooth_diff">true</param>
       <param name="motor/smooth_diff/max_sample_sec">0.2</param>
-      <param name="motor/smooth_diff/max_smooth_step">10</param>
-      <param name="command_mode">velocity_duty</param>
+      <param name="motor/smooth_diff/max_smooth_step">10</param> !-->
+      <param name="command_mode">velocity</param>
       <param name="joint_type">revolute</param>
     </hardware>
     <joint name="vesc_joint_right">
