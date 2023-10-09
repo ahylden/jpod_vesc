@@ -24,7 +24,7 @@
       <param name="servo/smooth_diff/max_sample_sec">1.0</param>
       <param name="servo/smooth_diff/max_smooth_step">10</param> !-->
       <param name="motor/Kp">50.0</param>
-      <param name="motor/Ki">0.0</param>
+      <param name="motor/Ki">0.5</param>
       <param name="motor/Kd">1.0</param>
       <!--<param name="motor/i_clamp">1.0</param>
       <param name="motor/duty_limiter">1.0</param>
@@ -79,7 +79,7 @@
       <param name="servo/smooth_diff/max_sample_sec">1.0</param>
       <param name="servo/smooth_diff/max_smooth_step">10</param> !-->
       <param name="motor/Kp">50.0</param>
-      <param name="motor/Ki">0.0</param>
+      <param name="motor/Ki">0.5</param>
       <param name="motor/Kd">1.0</param>
       <!--<param name="motor/i_clamp">1.0</param>
       <param name="motor/duty_limiter">1.0</param>
