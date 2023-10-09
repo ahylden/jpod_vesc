@@ -329,11 +329,6 @@ rclcpp::Time VescHwInterface::getTime() const
 
 void VescHwInterface::packetCallback(const std::shared_ptr<VescPacket const>& packet)
 {
-  if (!vesc_interface_->isRxDataUpdated())
-  {
-    RCLCPP_WARN(rclcpp::get_logger("VescHwInterface"), "[VescHwInterface::packetCallback]packetCallcack called, but "
-                                                       "no packet received");
-  }
   if (command_mode_ == "position")
   {
     servo_controller_.updateSensor(packet);
