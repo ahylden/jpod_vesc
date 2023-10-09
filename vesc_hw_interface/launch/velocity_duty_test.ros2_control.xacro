@@ -6,8 +6,8 @@
       <param name="port">/dev/ttyACM0</param>
       <param name="gear_ratio">0.25</param>
       <param name="torque_const">1.0</param>
-      <param name="num_hall_sensors">3</param>
-      <param name="screw_lead">1.0</param>
+      <param name="num_hall_sensors">1</param>
+      <!--<param name="screw_lead">1.0</param>!-->
       <param name="num_rotor_poles">14</param>
       <!--<param name="servo/Kp">0.03</param>
       <param name="servo/Ki">0.04</param>
@@ -33,7 +33,7 @@
       <param name="motor/enable_smooth_diff">true</param>
       <param name="motor/smooth_diff/max_sample_sec">0.2</param>
       <param name="motor/smooth_diff/max_smooth_step">10</param> !-->
-      <param name="command_mode">velocity</param>
+      <param name="command_mode">velocity_duty</param>
       <param name="joint_type">revolute</param>
     </hardware>
     <joint name="vesc_joint">
@@ -88,7 +88,7 @@
       <param name="motor/enable_smooth_diff">true</param>
       <param name="motor/smooth_diff/max_sample_sec">0.2</param>
       <param name="motor/smooth_diff/max_smooth_step">10</param> !-->
-      <param name="command_mode">velocity</param>
+      <param name="command_mode">velocity_duty</param>
       <param name="joint_type">revolute</param>
     </hardware>
     <joint name="vesc_joint_right">
