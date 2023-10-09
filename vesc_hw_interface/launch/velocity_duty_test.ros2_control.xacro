@@ -33,7 +33,7 @@
       <param name="motor/enable_smooth_diff">true</param>
       <param name="motor/smooth_diff/max_sample_sec">0.2</param>
       <param name="motor/smooth_diff/max_smooth_step">10</param> !-->
-      <param name="command_mode">velocity</param>
+      <param name="command_mode">velocity_duty</param>
       <param name="joint_type">continuous</param>
     </hardware>
     <joint name="vesc_joint">
@@ -88,7 +88,7 @@
       <param name="motor/enable_smooth_diff">true</param>
       <param name="motor/smooth_diff/max_sample_sec">0.2</param>
       <param name="motor/smooth_diff/max_smooth_step">10</param> !-->
-      <param name="command_mode">velocity</param>
+      <param name="command_mode">velocity_duty</param>
       <param name="joint_type">continuous</param>
     </hardware>
     <joint name="vesc_joint_right">
