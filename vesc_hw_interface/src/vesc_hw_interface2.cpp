@@ -216,15 +216,7 @@ std::vector<hardware_interface::CommandInterface> VescHwInterface::export_comman
 
 CallbackReturn VescHwInterface::on_activate(const rclcpp_lifecycle::State& /*previous_state*/)
 {
-  // Set some default values
-  if (std::isnan(position_))
-    position_ = 0;
-  if (std::isnan(velocity_))
-    velocity_ = 0;
-  if (std::isnan(effort_))
-    effort_ = 0;
-  if (std::isnan(command_))
-    command_ = 0;
+  //vesc_.connect();
 
   RCLCPP_INFO(rclcpp::get_logger("VescHwInterface"), "System successfully activated!");
   return CallbackReturn::SUCCESS;
@@ -232,38 +224,13 @@ CallbackReturn VescHwInterface::on_activate(const rclcpp_lifecycle::State& /*pre
 
 CallbackReturn VescHwInterface::on_deactivate(const rclcpp_lifecycle::State& /*previous_state*/)
 {
+  //vesc_.disconnect();
   return CallbackReturn::SUCCESS;
 }
 
 hardware_interface::return_type VescHwInterface::read(const rclcpp::Time& /*time*/, const rclcpp::Duration& /*period*/)
 {
-  // requests joint states
-  // function `packetCallback` will be called after receiving return packets
-  if (command_mode_ == "position")
-  {
-    // For PID control, request packets are automatically sent in the control cycle.
-    // The latest data is read in this function.
-    vesc_interface_->requestState();
-    position_ = servo_controller_.getPositionSens();
-    velocity_ = servo_controller_.getVelocitySens();
-    effort_ = servo_controller_.getEffortSens();
-  }
-  else if (command_mode_ == "velocity_duty")
-  {
-    vesc_interface_->requestState();
-    position_ = wheel_controller_.getPositionSens();
-    velocity_ = wheel_controller_.getVelocitySens();
-    effort_ = wheel_controller_.getEffortSens();
-  }
-  else
-  {
-    vesc_interface_->requestState();
-  }
-
-  if (joint_type_ == "revolute")
-  {
-    position_ = angles::normalize_angle(position_);
-  }
+  //vesc_.read_encoder_values();
 
   return hardware_interface::return_type::OK;
 }
@@ -342,13 +309,13 @@ void VescHwInterface::packetCallback(const std::shared_ptr<VescPacket const>& pa
   {
     wheel_controller_.updateSensor(packet);
   }
-  else if (packet->name() == "Values")
+  else if (packet->getName() == "Values")
   {
     std::shared_ptr<VescPacketValues const> values = std::dynamic_pointer_cast<VescPacketValues const>(packet);
 
-    const double current = values->avg_motor_current();
-    const double velocity_rpm = values->rpm() / static_cast<double>(num_rotor_poles_ / 2);
-    const double steps = values->pid_pos_now();
+    const double current = values->getMotorCurrent();
+    const double velocity_rpm = values->getVelocityERPM() / static_cast<double>(num_rotor_poles_ / 2);
+    const double steps = values->getPosition();
 
     position_ = steps / (num_hall_sensors_ * num_rotor_poles_) * gear_ratio_;  // unit: rad or m
     velocity_ = velocity_rpm / 60.0 * 2.0 * M_PI * gear_ratio_;                // unit: rad/s or m/s
