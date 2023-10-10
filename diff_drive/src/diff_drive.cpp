@@ -60,9 +60,6 @@ private:
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_left;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_right;
-
-  //float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
-  //float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
 };
 
 int main(int argc, char * argv[])
