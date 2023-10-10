@@ -37,10 +37,15 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    vesc_config = os.path.join(
+    vesc_config_left = os.path.join(
         get_package_share_directory('vesc_driver'),
         'params',
-        'vesc_config.yaml'
+        'vesc_config_left.yaml'
+        )
+    vesc_config_right = os.path.join(
+        get_package_share_directory('vesc_driver'),
+        'params',
+        'vesc_config_right.yaml'
         )
     diff_drive_config = os.path.join(
         get_package_share_directory('diff_drive'),
@@ -49,15 +54,26 @@ def generate_launch_description():
         )
     return LaunchDescription([
         DeclareLaunchArgument(
-            name="config",
-            default_value=vesc_config,
+            name="config_left",
+            default_value=vesc_config_left,
             description="VESC yaml configuration file.",
             ),
         Node(
             package='vesc_driver',
             executable='vesc_driver_node',
-            name='vesc_driver_node',
-            parameters=[LaunchConfiguration("config")]
+            name='vesc_driver_node_left',
+            parameters=[LaunchConfiguration("config_left")]
+        ),
+        DeclareLaunchArgument(
+            name="config_right",
+            default_value=vesc_config_right,
+            description="VESC yaml configuration file.",
+            ),
+        Node(
+            package='vesc_driver',
+            executable='vesc_driver_node',
+            name='vesc_driver_node_right',
+            parameters=[LaunchConfiguration("config_right")]
         ),
         DeclareLaunchArgument(
             name="config",
