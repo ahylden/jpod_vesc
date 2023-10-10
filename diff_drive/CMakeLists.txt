@@ -33,4 +33,8 @@ install(TARGETS
   diff_drive
   DESTINATION lib/${PROJECT_NAME})
 
-ament_package()
+ament_auto_package(
+  INSTALL_TO_SHARE
+    launch
+    config
+)
