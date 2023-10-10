@@ -29,13 +29,14 @@ using std::placeholders::_1;
 
 class DiffDrive : public rclcpp::Node
 {
+
+float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
+float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
+
 public:
   DiffDrive()
   : Node("diff_drive")
   {
-    float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
-    float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
-
     subscription_ = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&DiffDrive::diff_callback,this, _1));
     publisher_left = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_left/speed", 100);
     publisher_right = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_right/speed", 100);
