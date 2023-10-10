@@ -33,7 +33,14 @@ install(TARGETS
   diff_drive
   DESTINATION lib/${PROJECT_NAME})
 
-ament_package(
-    launch
-    config
-)
+  target_include_directories(my_target
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/launch>
+    $<INSTALL_INTERFACE:launch>)
+
+    target_include_directories(my_target
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/config>
+    $<INSTALL_INTERFACE:config>)
+
+ament_package()
