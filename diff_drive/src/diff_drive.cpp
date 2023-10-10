@@ -44,6 +44,9 @@ private:
     float vel = msg->linear.x;
     float ang = msg->angular.z;
 
+    float wheel_base = .305;
+    float wheel_radius = .15;
+
     float left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
     float right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
 
@@ -58,8 +61,8 @@ private:
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_left;
   rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_right;
 
-  float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
-  float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
+  //float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
+  //float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
 };
 
 int main(int argc, char * argv[])
