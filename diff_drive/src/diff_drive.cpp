@@ -14,6 +14,7 @@
 
 #include <chrono>
 #include <memory>
+#include <cmath>
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
@@ -32,23 +33,33 @@ public:
   DiffDrive()
   : Node("diff_drive")
   {
-    std::string motor_side = declare_parameter<std::string>("motor_side", "");
-
     subscription_ = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&DiffDrive::diff_callback,this, _1));
-    //publisher_ = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_"+motor_side+"/speed", 10);
-    publisher_ = this->create_publisher<std_msgs::msg::Float64>("/commands/motor/speed", 10);
+    publisher_left = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_left/speed", 100);
+    publisher_right = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_right/speed", 100);
   }
 
 private:
   void diff_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
   {
     float vel = msg->linear.x;
-    auto message = std_msgs::msg::Float64();
-    message.data = vel;
-    publisher_->publish(message);
+    float ang = msg->angular.z;
+
+    float wheel_base = declare_parameter("wheel_base", rclcpp::ParameterValue(0.0));
+    float wheel_radius = declare_parameter("wheel_radius", rclcpp::ParameterValue(0.0));
+
+    float left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
+    float right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
+
+    auto message_left = std_msgs::msg::Float64();
+    message_left.data = left_rpm;
+    auto message_right = std_msgs::msg::Float64();
+    message_right.data = right_rpm;
+    publisher_left->publish(message_left);
+    publisher_right->publish(message_right);
   }
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;
-  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_left;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_right;
 };
 
 int main(int argc, char * argv[])

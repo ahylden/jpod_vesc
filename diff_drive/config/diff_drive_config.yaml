@@ -1,3 +1,5 @@
 /**:
   ros__parameters:
     motor_side: "right"
+    wheel_base: .305 //wheel base in meters
+    wheel_radius: .15 //wheel radius in meters

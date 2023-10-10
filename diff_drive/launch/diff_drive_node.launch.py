@@ -37,28 +37,12 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    vesc_config = os.path.join(
-        get_package_share_directory('vesc_driver'),
-        'params',
-        'vesc_config.yaml'
-        )
     diff_drive_config = os.path.join(
         get_package_share_directory('diff_drive'),
         'config',
         'diff_drive_config.yaml'
         )
     return LaunchDescription([
-        DeclareLaunchArgument(
-            name="config",
-            default_value=vesc_config,
-            description="VESC yaml configuration file.",
-            ),
-        Node(
-            package='vesc_driver',
-            executable='vesc_driver_node',
-            name='vesc_driver_node',
-            parameters=[LaunchConfiguration("config")]
-        ),
         DeclareLaunchArgument(
             name="config",
             default_value=diff_drive_config,
