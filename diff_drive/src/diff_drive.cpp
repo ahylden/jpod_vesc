@@ -49,13 +49,13 @@ private:
     auto left_rpm = std_msgs::msg::Float64();
     auto right_rpm = std_msgs::msg::Float64();
 
-    left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
-    right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
+    left_rpm  = 7.0 * (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
+    right_rpm = 7.0 * (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
 
     auto message_left = std_msgs::msg::Float64();
-    message_left.data = left_rpm * 7; //times num motor pole pairs, will make parameter later
+    message_left.data = left_rpm; //times num motor pole pairs, will make parameter later
     auto message_right = std_msgs::msg::Float64();
-    message_right.data = right_rpm * 7;
+    message_right.data = right_rpm;
     publisher_left->publish(message_left);
     publisher_right->publish(message_right);
   }
