@@ -24,15 +24,14 @@
 using namespace std::chrono_literals;
 using std::placeholders::_1;
 
+float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
+float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
+
 /* This example creates a subclass of Node and uses std::bind() to register a
  * member function as a callback from the timer. */
 
 class DiffDrive : public rclcpp::Node
 {
-
-float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
-float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
-
 public:
   DiffDrive()
   : Node("diff_drive")
