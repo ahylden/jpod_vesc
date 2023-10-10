@@ -1,5 +1,5 @@
 /**:
   ros__parameters:
     motor_side: "right"
-    wheel_base: .305
-    wheel_radius: .15
+    wheel_base: "0.305"
+    wheel_radius: "0.15"
