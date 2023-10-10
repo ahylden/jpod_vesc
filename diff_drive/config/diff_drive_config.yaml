@@ -1,4 +1,4 @@
-/**:
+diff_drive_node:
   ros__parameters:
     motor_side: "right"
     wheel_base: "0.305"
