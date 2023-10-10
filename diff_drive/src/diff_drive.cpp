@@ -40,7 +40,7 @@ private:
   void diff_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
   {
     int vel = msg->linear.x;
-    auto message = std_msgs::msg::Float64();
+    auto message = std_msgs::Float64();
     message.data = std::to_string(vel);
     publisher_->publish(message);
   }
