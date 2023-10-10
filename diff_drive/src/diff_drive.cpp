@@ -21,6 +21,7 @@
 #include <geometry_msgs/msg/twist.hpp>
 
 using namespace std::chrono_literals;
+using std::placeholders::_1;
 
 /* This example creates a subclass of Node and uses std::bind() to register a
  * member function as a callback from the timer. */
@@ -29,7 +30,7 @@ class DiffDrive : public rclcpp::Node
 {
 public:
   DiffDrive()
-  : Node("diff_drive"), count_(0)
+  : Node("diff_drive")
   {
     std::string motor_side = declare_parameter<std::string>("motor_side", "");
 
@@ -40,9 +41,9 @@ public:
 private:
   void diff_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
   {
-    int vel = msg->linear.x;
+    float vel = msg->linear.x;
     auto message = std_msgs::msg::Float64();
-    message.data = std::to_string(vel);
+    message.data = vel;
     publisher_->publish(message);
   }
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;
