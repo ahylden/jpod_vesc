@@ -35,7 +35,8 @@ public:
     std::string motor_side = declare_parameter<std::string>("motor_side", "");
 
     subscription_ = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&DiffDrive::diff_callback,this, _1));
-    publisher_ = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_"+motor_side+"/speed", 10);
+    //publisher_ = this->create_publisher<std_msgs::msg::Float64>("/commands/motor_"+motor_side+"/speed", 10);
+    publisher_ = this->create_publisher<std_msgs::msg::Float64>("/commands/motor/speed", 10);
   }
 
 private:
