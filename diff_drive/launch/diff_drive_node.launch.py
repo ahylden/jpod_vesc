@@ -52,7 +52,7 @@ def generate_launch_description():
             package='diff_drive',
             executable='diff_drive',
             name='diff_drive_node',
-            parameters=[LaunchConfiguration("config")]
+            #parameters=[LaunchConfiguration("config")]
         ),
 
     ])
