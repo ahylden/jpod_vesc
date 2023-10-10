@@ -17,7 +17,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/msg/twist.hpp>
 
 using namespace std::chrono_literals;
 
@@ -32,12 +32,12 @@ public:
   {
     std::string motor_side = declare_parameter<std::string>("motor_side", "");
 
-    subscription_ = this->create_subscription<geometry_msgs::Twist>("cmd_vel", 10, std::bind(&DiffDrive::diff_callback,this, _1));
+    subscription_ = this->create_subscription<geometry_msgs::msg::Twist>("cmd_vel", 10, std::bind(&DiffDrive::diff_callback,this, _1));
     publisher_ = this->create_publisher<std_msgs::msg::String>("/commands/motor_"+motor_side+"/speed", 10);
   }
 
 private:
-  void diff_callback(const geometry_msgs::Twist::SharedPtr msg)
+  void diff_callback(const geometry_msgs::msg::Twist::SharedPtr msg)
   {
     int vel = msg->linear.x;
     auto message = std_msgs::msg::Float64();
