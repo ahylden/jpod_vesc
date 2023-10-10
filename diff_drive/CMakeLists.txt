@@ -33,14 +33,12 @@ install(TARGETS
   diff_drive
   DESTINATION lib/${PROJECT_NAME})
 
-  target_include_directories(diff_drive
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/launch>
-    $<INSTALL_INTERFACE:launch>)
+install(
+  DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME})
 
-    target_include_directories(diff_drive
-  PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/config>
-    $<INSTALL_INTERFACE:config>)
+install(
+DIRECTORY config
+DESTINATION share/${PROJECT_NAME})
 
 ament_package()
