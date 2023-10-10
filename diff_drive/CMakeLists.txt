@@ -30,7 +30,7 @@ add_executable(diff_drive src/diff_drive.cpp)
 ament_target_dependencies(diff_drive rclcpp std_msgs geometry_msgs)
 
 install(TARGETS
-  talker
+  diff_drive
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
