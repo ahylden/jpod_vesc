@@ -237,54 +237,7 @@ hardware_interface::return_type VescHwInterface::read(const rclcpp::Time& /*time
 
 hardware_interface::return_type VescHwInterface::write(const rclcpp::Time& /*time*/, const rclcpp::Duration& period)
 {
-  // sends commands
-  if (command_mode_ == "position")
-  {
-    // Limit the speed using the parameters listed in xacro
-    // limit_position_interface_.enforceLimits(period);
-    // limit_position_handle_.enforceLimits(period);
-
-    // executes PID control
-    servo_controller_.setTargetPosition(command_);
-    servo_controller_.control(1.0 / period.seconds());
-  }
-  else if (command_mode_ == "velocity")
-  {
-    // limit_velocity_interface_.enforceLimits(period);
-
-    // converts the velocity unit: rad/s or m/s -> rpm -> erpm
-    const double command_rpm = command_ * 60.0 / 2.0 / M_PI / gear_ratio_;
-    const double command_erpm = command_rpm * static_cast<double>(num_rotor_poles_) / 2;
-
-    // sends a reference velocity command
-    vesc_interface_->setSpeed(command_erpm);
-  }
-  else if (command_mode_ == "velocity_duty")
-  {
-    // limit_velocity_interface_.enforceLimits(period);
-
-    // executes PID control
-    wheel_controller_.setTargetVelocity(command_);
-    wheel_controller_.control(1.0 / period.seconds());
-  }
-  else if (command_mode_ == "effort")
-  {
-    // limit_effort_interface_.enforceLimits(period);
-
-    // converts the command unit: Nm or N -> A
-    const double command_current = command_ * gear_ratio_ / torque_const_;
-
-    // sends a reference current command
-    vesc_interface_->setCurrent(command_current);
-  }
-  else if (command_mode_ == "effort_duty")
-  {
-    command_ = std::max(-1.0, command_);
-    command_ = std::min(1.0, command_);
-
-    // sends a  duty command
-    vesc_interface_->setDutyCycle(command_);
-  }
+  //vesc_.set_motore_values();
   return hardware_interface::return_type::OK;
 }
 
@@ -296,11 +249,6 @@ rclcpp::Time VescHwInterface::getTime() const
 
 void VescHwInterface::packetCallback(const std::shared_ptr<VescPacket const>& packet)
 {
-  if (!vesc_interface_->isRxDataUpdated())
-  {
-    RCLCPP_WARN(rclcpp::get_logger("VescHwInterface"), "[VescHwInterface::packetCallback]packetCallcack called, but "
-                                                       "no packet received");
-  }
   if (command_mode_ == "position")
   {
     servo_controller_.updateSensor(packet);
