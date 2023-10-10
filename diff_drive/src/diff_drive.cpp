@@ -47,7 +47,7 @@ private:
     publisher_->publish(message);
   }
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr subscription_;
-  rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+  rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_;
 };
 
 int main(int argc, char * argv[])
