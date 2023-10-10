@@ -44,8 +44,8 @@ private:
     float vel = msg->linear.x;
     float ang = msg->angular.z;
 
-    float wheel_base = declare_parameter("wheel_base", rclcpp::ParameterValue(0.0));
-    float wheel_radius = declare_parameter("wheel_radius", rclcpp::ParameterValue(0.0));
+    auto wheel_base = declare_parameter("wheel_base", rclcpp::ParameterValue(0.0));
+    auto wheel_radius = declare_parameter("wheel_radius", rclcpp::ParameterValue(0.0));
 
     float left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
     float right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
