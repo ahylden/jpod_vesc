@@ -34,7 +34,6 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package(
-  INSTALL_TO_SHARE
     launch
     config
 )
