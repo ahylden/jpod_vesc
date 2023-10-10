@@ -96,7 +96,7 @@ VescDriver::VescDriver(const rclcpp::NodeOptions & options)
       &VescDriver::dutyCycleCallback, this,
       _1));
   current_sub_ = create_subscription<Float64>(
-    "commands/motor" + motor_side + "/current", rclcpp::QoS{10}, std::bind(&VescDriver::currentCallback, this, _1));
+    "commands/motor/current", rclcpp::QoS{10}, std::bind(&VescDriver::currentCallback, this, _1));
   brake_sub_ = create_subscription<Float64>(
     "commands/motor" + motor_side + "/brake", rclcpp::QoS{10}, std::bind(&VescDriver::brakeCallback, this, _1));
   speed_sub_ = create_subscription<Float64>(
