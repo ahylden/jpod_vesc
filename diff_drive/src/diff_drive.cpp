@@ -44,8 +44,8 @@ private:
     float vel = msg->linear.x;
     float ang = msg->angular.z;
 
-    float wheel_base = declare_parameter<std::float>("wheel_base", "");
-    float wheel_radius = declare_parameter<std::float>("wheel_radius", "");
+    float wheel_base = sdt::stof(declare_parameter<std::string>("wheel_base", ""));
+    float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
 
     float left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
     float right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
