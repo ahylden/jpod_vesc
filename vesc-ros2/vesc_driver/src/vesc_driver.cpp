@@ -46,6 +46,7 @@ namespace vesc_driver
 using namespace std::chrono_literals;
 using std::placeholders::_1;
 using std_msgs::msg::Float64;
+using std_msgs::msg::Int64;
 using vesc_msgs::msg::VescStateStamped;
 using sensor_msgs::msg::Imu;
 
@@ -176,6 +177,8 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     state_msg.state.avg_iq = values->avg_iq();
     state_msg.state.duty_cycle = values->duty_cycle_now();
     state_msg.state.speed = values->rpm();
+    auto rpm_message = std_msgs::msg::Int64();
+    rpm_message = values->rpm();
 
     state_msg.state.charge_drawn = values->amp_hours();
     state_msg.state.charge_regen = values->amp_hours_charged();
@@ -195,6 +198,7 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     state_msg.state.avg_vq = values->avg_vq();
 
     state_pub_->publish(state_msg);
+    rpm_pub_->publish(rpm_message);
   } else if (packet->name() == "FWVersion") {
     std::shared_ptr<VescPacketFWVersion const> fw_version =
       std::dynamic_pointer_cast<VescPacketFWVersion const>(packet);

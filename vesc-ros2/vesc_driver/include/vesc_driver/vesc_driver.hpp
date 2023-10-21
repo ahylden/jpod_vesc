@@ -50,6 +50,7 @@ namespace vesc_driver
 {
 
 using std_msgs::msg::Float64;
+using std_msgs::msg::Int64;
 using vesc_msgs::msg::VescState;
 using vesc_msgs::msg::VescStateStamped;
 using vesc_msgs::msg::VescImuStamped;
@@ -93,6 +94,7 @@ private:
 
   // ROS services
   rclcpp::Publisher<VescStateStamped>::SharedPtr state_pub_;
+  rclcpp::Publisher<std_msgs::msg::Int64>::SharedPtr rpm_pub_;
   rclcpp::Publisher<VescImuStamped>::SharedPtr imu_pub_;
   rclcpp::Publisher<Imu>::SharedPtr imu_std_pub_;
 
