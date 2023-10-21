@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <limits>
+#include <string>
 
 std::unique_ptr<VehicleModel> VehicleModel::createConcreteVehicleModel(std::string model_name)
 {

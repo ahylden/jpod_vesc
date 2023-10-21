@@ -5,7 +5,6 @@
 #include <chrono>
 #include <functional>
 #include <numeric>
-#include <string>
 
 using std::placeholders::_1;
 using namespace std::chrono_literals;
