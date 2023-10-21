@@ -197,12 +197,12 @@ double VescWheelController::getEffortSens()
 
 void VescWheelController::updateSensor(const std::shared_ptr<const VescPacket>& packet)
 {
-  if (packet->getName() == "Values")
+  if (packet->name() == "Values")
   {
     std::shared_ptr<VescPacketValues const> values = std::dynamic_pointer_cast<VescPacketValues const>(packet);
-    const double current = values->getMotorCurrent();
-    const double velocity_rpm = values->getVelocityERPM() / static_cast<double>(num_rotor_pole_pairs_) * gear_ratio_;
-    const int32_t steps = static_cast<int32_t>(values->getPosition());
+    const double current = values->avg_motor_current();
+    const double velocity_rpm = values->rpm() / static_cast<double>(num_rotor_pole_pairs_) * gear_ratio_;
+    const int32_t steps = static_cast<int32_t>(values->pid_pos_now());
     if (sensor_initialize_)
     {
       prev_steps_ = steps;

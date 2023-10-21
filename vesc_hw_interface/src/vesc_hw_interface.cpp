@@ -329,11 +329,6 @@ rclcpp::Time VescHwInterface::getTime() const
 
 void VescHwInterface::packetCallback(const std::shared_ptr<VescPacket const>& packet)
 {
-  if (!vesc_interface_->isRxDataUpdated())
-  {
-    RCLCPP_WARN(rclcpp::get_logger("VescHwInterface"), "[VescHwInterface::packetCallback]packetCallcack called, but "
-                                                       "no packet received");
-  }
   if (command_mode_ == "position")
   {
     servo_controller_.updateSensor(packet);
@@ -342,13 +337,13 @@ void VescHwInterface::packetCallback(const std::shared_ptr<VescPacket const>& pa
   {
     wheel_controller_.updateSensor(packet);
   }
-  else if (packet->getName() == "Values")
+  else if (packet->name() == "Values")
   {
     std::shared_ptr<VescPacketValues const> values = std::dynamic_pointer_cast<VescPacketValues const>(packet);
 
-    const double current = values->getMotorCurrent();
-    const double velocity_rpm = values->getVelocityERPM() / static_cast<double>(num_rotor_poles_ / 2);
-    const double steps = values->getPosition();
+    const double current = values->avg_motor_current();
+    const double velocity_rpm = values->rpm() / static_cast<double>(num_rotor_poles_ / 2);
+    const double steps = values->pid_pos_now();
 
     position_ = steps / (num_hall_sensors_ * num_rotor_poles_) * gear_ratio_;  // unit: rad or m
     velocity_ = velocity_rpm / 60.0 * 2.0 * M_PI * gear_ratio_;                // unit: rad/s or m/s
