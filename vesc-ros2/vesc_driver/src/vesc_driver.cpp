@@ -90,6 +90,9 @@ VescDriver::VescDriver(const rclcpp::NodeOptions & options)
   // get motor side
   std::string motor_side = declare_parameter<std::string>("motor_side", "");
 
+  //RPM publisher for odom calculator node
+  rpm_pub_ = create_publisher<std_msgs::msg::Int64>("feedback/motor_" + motor_side + "/rpm", rclcpp::QoS{10});
+
   // subscribe to motor and servo command topics
   duty_cycle_sub_ = create_subscription<Float64>(
     "commands/motor_" + motor_side + "/duty_cycle", rclcpp::QoS{10}, std::bind(
