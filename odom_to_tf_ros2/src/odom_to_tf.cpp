@@ -32,12 +32,14 @@ class OdomToTF : public rclcpp::Node {
                 RCLCPP_INFO(this->get_logger(), "child_frame_id was not set. The child_frame_id of the odom message will be used.");
             }
             sub_ = this->create_subscription<nav_msgs::msg::Odometry>(odom_topic, rclcpp::SensorDataQoS(), std::bind(&OdomToTF::odomCallback, this, _1));
+            sub_base = this->create_subscription<nav_msgs::msg::Odometry>("/base_odom", rclcpp::SensorDataQoS(), std::bind(&OdomToTF::baseCallback, this, _1));
             tfb_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
         }
     private:
         std::string frame_id, child_frame_id;
         std::shared_ptr<tf2_ros::TransformBroadcaster> tfb_;
         rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr sub_;
+        rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr sub_base;
         void odomCallback(const nav_msgs::msg::Odometry::SharedPtr msg) const {
 
             geometry_msgs::msg::TransformStamped tfs_;
@@ -45,6 +47,21 @@ class OdomToTF : public rclcpp::Node {
             tfs_.header.stamp = this->now();
             tfs_.header.frame_id = frame_id != "" ? frame_id : tfs_.header.frame_id;
             tfs_.child_frame_id = child_frame_id != "" ? child_frame_id : msg->child_frame_id;
+            tfs_.transform.translation.x = msg->pose.pose.position.x;
+            tfs_.transform.translation.y = msg->pose.pose.position.y;
+            tfs_.transform.translation.z = msg->pose.pose.position.z;
+
+            tfs_.transform.rotation = msg->pose.pose.orientation;
+
+            tfb_->sendTransform(tfs_);
+        }
+        void baseCallback(const nav_msgs::msg::Odometry::SharedPtr msg) const {
+
+            geometry_msgs::msg::TransformStamped tfs_;
+            tfs_.header = msg->header;
+            tfs_.header.stamp = this->now();
+            tfs_.header.frame_id = "base_link";
+            tfs_.child_frame_id = "map";
             tfs_.transform.translation.x = msg->pose.pose.position.x;
             tfs_.transform.translation.y = msg->pose.pose.position.y;
             tfs_.transform.translation.z = msg->pose.pose.position.z;

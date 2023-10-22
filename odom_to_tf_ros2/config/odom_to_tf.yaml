@@ -2,5 +2,5 @@ odom_to_tf:
     ros__parameters:
         odom_topic: "/odom"
         frame_id: "map"
-        child_frame_id: "base_link"
+        child_frame_id: "odom"
         use_sim_time: False

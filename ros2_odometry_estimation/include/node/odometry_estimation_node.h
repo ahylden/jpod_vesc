@@ -22,8 +22,11 @@ class OdometryEstimator : public rclcpp::Node {
   void publish();
   VehicleModelPtr vehicle_model_{nullptr};
   VehicleState state_{0.0, 0.0, 0.0};
+  VehicleState state_com{0.0, 0.0, 0.0};
   std::vector<int> rpms_left_;
   std::vector<int> rpms_right_;
+  std::vector<float> rpms_left_com;
+  std::vector<float> rpms_right_com;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr publisher_;
   rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr right_wheel_subscriber_;
   rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr left_wheel_subscriber_;
