@@ -112,6 +112,10 @@ def generate_launch_description():
             package='odometry_estimator',
             executable='odometry_estimator',
             name='odometry_estimator_node'
+        ),
+        Node(
+            package='odom_to_tf_ros2',
+            executable='odom_to_tf',
+            name='odom_to_tf_node'
         )
-
     ])
