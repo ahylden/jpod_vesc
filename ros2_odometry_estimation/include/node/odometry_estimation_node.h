@@ -20,6 +20,8 @@ class OdometryEstimator : public rclcpp::Node {
  private:
   void handleRightWheelInput(const std_msgs::msg::Int64::SharedPtr rpm_right);
   void handleLeftWheelInput(const std_msgs::msg::Int64::SharedPtr rpm_left);
+  void handleRightWheelCom(const std_msgs::msg::Float64::SharedPtr rpm_right);
+  void handleLeftWheelCom(const std_msgs::msg::Float64::SharedPtr rpm_left);
   void publish();
   VehicleModelPtr vehicle_model_{nullptr};
   VehicleState state_{0.0, 0.0, 0.0};

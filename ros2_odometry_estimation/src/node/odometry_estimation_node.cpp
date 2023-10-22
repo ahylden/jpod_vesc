@@ -110,7 +110,7 @@ void OdometryEstimator::publish()
   publisher_base->publish(message);
   // update internal state
   state_ = new_state;
-  state_com = new_state_com
+  state_com = new_state_com;
   previous_time_ = current_time;
 }
 
