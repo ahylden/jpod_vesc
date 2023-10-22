@@ -52,6 +52,11 @@ def generate_launch_description():
         'config',
         'diff_drive_config.yaml'
         )
+    odom_to_tf_config = os.path.join(
+        get_package_share_directory('odom_to_tf_ros2'),
+        'config',
+        'odom_to_tf.yaml'
+        )
     return LaunchDescription([
         DeclareLaunchArgument(
             name="config_left",
@@ -113,9 +118,15 @@ def generate_launch_description():
             executable='odometry_estimator',
             name='odometry_estimator_node'
         ),
+        DeclareLaunchArgument(
+            name="config_odom_tf",
+            default_value=odom_to_tf_config,
+            description="Odom transform yaml configuration file.",
+        ),
         Node(
             package='odom_to_tf_ros2',
             executable='odom_to_tf',
-            name='odom_to_tf_node'
+            name='odom_to_tf_node',
+            parameters=[LaunchConfiguration("config_odom_tf")]
         )
     ])
