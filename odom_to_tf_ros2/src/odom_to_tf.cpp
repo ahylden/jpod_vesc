@@ -10,10 +10,14 @@ using std::placeholders::_1;
 class OdomToTF : public rclcpp::Node {
     public:
         OdomToTF() : Node("odom_to_tf") {
-            std::string odom_topic;
-            frame_id = this->declare_parameter("frame_id", std::string(""));
-            child_frame_id = this->declare_parameter("child_frame_id", std::string(""));
-            odom_topic = this->declare_parameter("odom_topic", std::string("/odom/perfect"));
+            std::string odom_topic = "/odom";
+            //frame_id = this->declare_parameter("frame_id", std::string(""));
+            //child_frame_id = this->declare_parameter("child_frame_id", std::string(""));
+            //odom_topic = this->declare_parameter("odom_topic", std::string("/odom"));
+
+            frame_id = "map";
+            child_frame_id = "base_link";
+
             RCLCPP_INFO(this->get_logger(), "odom_topic set to %s", odom_topic.c_str());
             if (frame_id != "") {
                 RCLCPP_INFO(this->get_logger(), "frame_id set to %s", frame_id.c_str());
