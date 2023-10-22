@@ -32,7 +32,7 @@ VehicleState DifferentialDriveModel::calculateNextState(int rpm_left_wheel, int 
   double v_l = static_cast<double>(rpm_left_wheel) / 60 * 2 * WHEEL_RADIUS * M_PI;
   double v_r = static_cast<double>(rpm_right_wheel) / 60 * 2 * WHEEL_RADIUS * M_PI;
   // calculate radius of curve
-  double radius{0};
+  double radius = 0.0;
   //if (!((v_r - v_l) < (std::numeric_limits<double>::epsilon() * std::max(1.0, std::max(v_r, v_l))))) {
   if(!(v_r == v_l))
   {
