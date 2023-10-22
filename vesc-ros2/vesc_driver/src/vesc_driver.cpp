@@ -178,7 +178,7 @@ void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const> & pa
     state_msg.state.duty_cycle = values->duty_cycle_now();
     state_msg.state.speed = values->rpm();
     auto rpm_message = std_msgs::msg::Int64();
-    rpm_message = (int)values->rpm();
+    rpm_message.data = (int)values->rpm();
 
     state_msg.state.charge_drawn = values->amp_hours();
     state_msg.state.charge_regen = values->amp_hours_charged();
