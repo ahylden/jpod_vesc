@@ -96,16 +96,16 @@ void OdometryEstimator::publish()
   message.pose.pose.orientation.w = quat.w();
 
   tf2::Quaternion quat_com;
-  quat.setRPY(0.0, 0.0, new_state_com.yaw);
+  quat_com.setRPY(0.0, 0.0, new_state_com.yaw);
   auto message_com = nav_msgs::msg::Odometry();
   message_com.header.stamp = this->get_clock()->now();
   message_com.header.frame_id = "base_link";
   message_com.pose.pose.position.x = new_state_com.x;
   message_com.pose.pose.position.y = new_state_com.y;
-  message_com.pose.pose.orientation.x = quat.x();
-  message_com.pose.pose.orientation.y = quat.y();
-  message_com.pose.pose.orientation.z = quat.z();
-  message_com.pose.pose.orientation.w = quat.w();
+  message_com.pose.pose.orientation.x = quat_com.x();
+  message_com.pose.pose.orientation.y = quat_com.y();
+  message_com.pose.pose.orientation.z = quat_com.z();
+  message_com.pose.pose.orientation.w = quat_com.w();
   publisher_->publish(message);
   publisher_base->publish(message);
   // update internal state

@@ -34,8 +34,8 @@ class OdometryEstimator : public rclcpp::Node {
   rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr right_wheel_subscriber_;
   rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr left_wheel_subscriber_;
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr publisher_com;
-  rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr right_wheel_subscriber_com;
-  rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr left_wheel_subscriber_com;
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr right_wheel_subscriber_com;
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr left_wheel_subscriber_com;
   rclcpp::TimerBase::SharedPtr timer_;
   TimePoint previous_time_{};
 };
