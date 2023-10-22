@@ -107,7 +107,7 @@ void OdometryEstimator::publish()
   message_com.pose.pose.orientation.z = quat_com.z();
   message_com.pose.pose.orientation.w = quat_com.w();
   publisher_->publish(message);
-  publisher_base->publish(message);
+  publisher_base->publish(message_com);
   // update internal state
   state_ = new_state;
   state_com = new_state_com;
