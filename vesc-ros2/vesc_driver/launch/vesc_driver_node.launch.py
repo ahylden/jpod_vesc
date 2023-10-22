@@ -108,5 +108,10 @@ def generate_launch_description():
             name='base_link_to_base_laser_ld19',
             arguments=['0','0','0.18','0','0','0','base_link','base_laser']
         )
+        Node(
+            package='odometry_estimator',
+            executable='odometry_estimator',
+            name='odometry_estimator_node'
+        )
 
     ])
