@@ -45,8 +45,9 @@ void OdometryEstimator::publish()
   std::chrono::duration<double> dt = current_time - previous_time_;
   // calculate average of received rpm signals
   int rpm_left_avg = std::accumulate(rpms_left_.begin(), rpms_left_.end(), 0.0) / rpms_left_.size();
-  int rpm_right_avg =
-      std::accumulate(rpms_right_.begin(), rpms_right_.end(), 0.0) / rpms_right_.size();
+  int rpm_right_avg = std::accumulate(rpms_right_.begin(), rpms_right_.end(), 0.0) / rpms_right_.size();
+  rpm_left_avg = rpm_left_avg / 7 / 4; //divided by 7 gives actual rpm from erpm, divide by 4 gives rpm of wheels
+  rpm_right_avg = rpm_right_avg / 7 / 4;
   rpms_left_.clear();
   rpms_right_.clear();
   // calculate new state based on input
