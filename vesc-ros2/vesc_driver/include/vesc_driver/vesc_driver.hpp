@@ -38,7 +38,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include <std_msgs/msg/float64.hpp>
-#include <std_msgs/msg/Int64.hpp>
+#include <std_msgs/msg/int64.hpp>
 #include <vesc_msgs/msg/vesc_state.hpp>
 #include <vesc_msgs/msg/vesc_state_stamped.hpp>
 #include <vesc_msgs/msg/vesc_imu.hpp>
