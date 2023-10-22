@@ -16,7 +16,7 @@ class OdomToTF : public rclcpp::Node {
             //odom_topic = this->declare_parameter("odom_topic", std::string("/odom"));
 
             frame_id = "map";
-            child_frame_id = "base_link";
+            child_frame_id = "odom";
 
             RCLCPP_INFO(this->get_logger(), "odom_topic set to %s", odom_topic.c_str());
             if (frame_id != "") {
