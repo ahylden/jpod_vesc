@@ -49,11 +49,11 @@ private:
     //auto left_rpm = std_msgs::msg::Float64();
     //auto right_rpm = std_msgs::msg::Float64();
 
-    float left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
-    float right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius);
+    float left_rpm  = (vel - 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius) / gear_ratio;
+    float right_rpm = (vel + 0.5f*ang*wheel_base)/((2 * M_PI) / 60 * wheel_radius) / gear_ratio;
 
-    float left_erpm = 7.0f*left_rpm;
-    float right_erpm = 7.0f*right_rpm;
+    float left_erpm = pole_pairs*left_rpm;
+    float right_erpm = pole_pairs*right_rpm;
 
     auto message_left = std_msgs::msg::Float64();
     message_left.data = left_erpm; //times num motor pole pairs, will make parameter later
@@ -68,6 +68,8 @@ private:
 
   float wheel_base = std::stof(declare_parameter<std::string>("wheel_base", ""));
   float wheel_radius = std::stof(declare_parameter<std::string>("wheel_radius", ""));
+  float gear_ratio = std::stof(declare_parameter<std::string>("gear_ratio", ""));
+  float pole_pairs = std::stof(declare_parameter<std::string>("pole_pairs", ""));
 };
 
 int main(int argc, char * argv[])

@@ -3,3 +3,5 @@
     motor_side: "right"
     wheel_base: "0.305"
     wheel_radius: "0.15"
+    gear_ratio: ".25"
+    pole_pairs: "7.0"
