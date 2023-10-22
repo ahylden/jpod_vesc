@@ -23,12 +23,12 @@ OdometryEstimator::OdometryEstimator() : Node("odometry_publisher")
       "feedback/motor_left/rpm", 10,
       std::bind(&OdometryEstimator::handleLeftWheelInput, this, std::placeholders::_1));
 
-  right_wheel_subscriber_ = this->create_subscription<std_msgs::msg::Float64>(
+  right_wheel_subscriber_com = this->create_subscription<std_msgs::msg::Float64>(
       "commands/motor_right/speed", 10,
-      std::bind(&OdometryEstimator::handleRightWheelInput, this, std::placeholders::_1));
-  left_wheel_subscriber_ = this->create_subscription<std_msgs::msg::Float64>(
+      std::bind(&OdometryEstimator::handleRightWheelCom, this, std::placeholders::_1));
+  left_wheel_subscriber_com = this->create_subscription<std_msgs::msg::Float64>(
       "commands/motor_left/speed", 10,
-      std::bind(&OdometryEstimator::handleLeftWheelInput, this, std::placeholders::_1));
+      std::bind(&OdometryEstimator::handleLeftWheelCom, this, std::placeholders::_1));
 
   // create publisher and timer
   publisher_ = this->create_publisher<nav_msgs::msg::Odometry>("odom", 10);
@@ -46,14 +46,16 @@ void OdometryEstimator::handleLeftWheelInput(const std_msgs::msg::Int64::SharedP
   rpms_left_.push_back(rpm_left->data);
 }
 
-void OdometryEstimator::handleRightWheelCom(const std_msgs::msg::Int64::SharedPtr rpm_right)
+void OdometryEstimator::handleRightWheelCom(const std_msgs::msg::Float64::SharedPtr rpm_right)
 {
-  rpms_right_com.push_back(rpm_right->data);
+  int rpm_right_ = (int)rpm_right->data;
+  rpms_right_com.push_back(rpm_right_);
 }
 
-void OdometryEstimator::handleLeftWheelCom(const std_msgs::msg::Int64::SharedPtr rpm_left)
+void OdometryEstimator::handleLeftWheelCom(const std_msgs::msg::Float64::SharedPtr rpm_left)
 {
-  rpms_left_com.push_back(rpm_left->data);
+  int rpm_left_ = (int)rpm_left->data;
+  rpms_left_com.push_back(rpm_left_);
 }
 
 void OdometryEstimator::publish()
@@ -64,8 +66,8 @@ void OdometryEstimator::publish()
   // calculate average of received rpm signals
   int rpm_left_avg = std::accumulate(rpms_left_.begin(), rpms_left_.end(), 0.0) / rpms_left_.size();
   int rpm_right_avg = std::accumulate(rpms_right_.begin(), rpms_right_.end(), 0.0) / rpms_right_.size();
-  int rpm_left_avg_com = std::accumulate((int)rpms_left_com.begin(), (int)rpms_left_com.end(), 0.0) / rpms_left_com.size();
-  int rpm_right_avg_com = std::accumulate((int)rpms_right_com.begin(), (int)rpms_right_com.end(), 0.0) / rpms_right_com.size();
+  int rpm_left_avg_com = std::accumulate(rpms_left_com.begin(), rpms_left_com.end(), 0.0) / rpms_left_com.size();
+  int rpm_right_avg_com = std::accumulate(rpms_right_com.begin(), rpms_right_com.end(), 0.0) / rpms_right_com.size();
   rpm_left_avg = rpm_left_avg / 7 / 4; //divided by 7 gives actual rpm from erpm, divide by 4 gives rpm of wheels
   rpm_right_avg = rpm_right_avg / 7 / 4;
   rpm_left_avg_com = rpm_left_avg_com / 7 / 4;

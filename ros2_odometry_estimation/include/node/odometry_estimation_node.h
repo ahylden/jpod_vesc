@@ -4,6 +4,7 @@
 #include <chrono>
 #include <nav_msgs/msg/odometry.hpp>
 #include <std_msgs/msg/int64.hpp>
+#include <std_msgs/msg/float64.hpp>
 #include <vector>
 
 #include "vehicle_models.h"
@@ -30,6 +31,9 @@ class OdometryEstimator : public rclcpp::Node {
   rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr publisher_;
   rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr right_wheel_subscriber_;
   rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr left_wheel_subscriber_;
+  rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr publisher_com;
+  rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr right_wheel_subscriber_com;
+  rclcpp::Subscription<std_msgs::msg::Int64>::SharedPtr left_wheel_subscriber_com;
   rclcpp::TimerBase::SharedPtr timer_;
   TimePoint previous_time_{};
 };
