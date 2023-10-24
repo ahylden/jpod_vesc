@@ -15,8 +15,8 @@ class OdomToTF : public rclcpp::Node {
             //child_frame_id = this->declare_parameter("child_frame_id", std::string(""));
             //odom_topic = this->declare_parameter("odom_topic", std::string("/odom"));
 
-            frame_id = "map";
-            child_frame_id = "odom";
+            frame_id = "odom";
+            child_frame_id = "base_link";
 
             RCLCPP_INFO(this->get_logger(), "odom_topic set to %s", odom_topic.c_str());
             if (frame_id != "") {
@@ -32,7 +32,6 @@ class OdomToTF : public rclcpp::Node {
                 RCLCPP_INFO(this->get_logger(), "child_frame_id was not set. The child_frame_id of the odom message will be used.");
             }
             sub_ = this->create_subscription<nav_msgs::msg::Odometry>(odom_topic, rclcpp::SensorDataQoS(), std::bind(&OdomToTF::odomCallback, this, _1));
-            sub_base = this->create_subscription<nav_msgs::msg::Odometry>("/base_odom", rclcpp::SensorDataQoS(), std::bind(&OdomToTF::baseCallback, this, _1));
             tfb_ = std::make_shared<tf2_ros::TransformBroadcaster>(this);
         }
     private:
@@ -47,21 +46,6 @@ class OdomToTF : public rclcpp::Node {
             tfs_.header.stamp = this->now();
             tfs_.header.frame_id = frame_id != "" ? frame_id : tfs_.header.frame_id;
             tfs_.child_frame_id = child_frame_id != "" ? child_frame_id : msg->child_frame_id;
-            tfs_.transform.translation.x = msg->pose.pose.position.x;
-            tfs_.transform.translation.y = msg->pose.pose.position.y;
-            tfs_.transform.translation.z = msg->pose.pose.position.z;
-
-            tfs_.transform.rotation = msg->pose.pose.orientation;
-
-            tfb_->sendTransform(tfs_);
-        }
-        void baseCallback(const nav_msgs::msg::Odometry::SharedPtr msg) const {
-
-            geometry_msgs::msg::TransformStamped tfs_;
-            tfs_.header = msg->header;
-            tfs_.header.stamp = this->now();
-            tfs_.header.frame_id = "map";
-            tfs_.child_frame_id = "base_link";
             tfs_.transform.translation.x = msg->pose.pose.position.x;
             tfs_.transform.translation.y = msg->pose.pose.position.y;
             tfs_.transform.translation.z = msg->pose.pose.position.z;
