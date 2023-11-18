@@ -46,7 +46,7 @@ VehicleState DifferentialDriveModel::calculateNextState(int rpm_left_wheel, int 
   // calculate forward kinematics
   double dyaw = angular_vel * dt;
   //dyaw = HelperMethods::wrapAngle(dyaw);
-  new_state.x = -1* std::cos(dyaw) * (prev_state.x - x_icc) - std::sin(dyaw) * (prev_state.y - y_icc) + x_icc;
+  new_state.x = std::cos(dyaw) * (prev_state.x - x_icc) - std::sin(dyaw) * (prev_state.y - y_icc) + x_icc;
   new_state.y = std::sin(dyaw) * (prev_state.x - x_icc) + std::cos(dyaw) * (prev_state.y - y_icc) + y_icc;
   new_state.yaw = prev_state.yaw + dyaw;
 
