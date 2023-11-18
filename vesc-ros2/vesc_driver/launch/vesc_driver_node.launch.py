@@ -123,16 +123,14 @@ def generate_launch_description():
               {'port_baudrate': 230400},
               {'laser_scan_dir': True},
               {'enable_angle_crop_func': True},
-              {'angle_crop_min': 0.0},
-              {'angle_crop_max': 90.0},
-              {'angle_crop_min': 270.0},
-              {'angle_crop_max': 360.0}]
+              {'angle_crop_min': -90.0},
+              {'angle_crop_max': 90.0}]
         ),
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
             name='base_link_to_base_laser_ld19',
-            arguments=['0','0','0.18','0','0','0','base_link','base_laser'] #yaw 3.15
+            arguments=['0','0','0.18','3.15','0','0','base_link','base_laser'] #yaw 3.15
         ),
         Node(
             package='tf2_ros',
