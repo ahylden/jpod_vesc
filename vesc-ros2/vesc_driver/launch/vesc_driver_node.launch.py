@@ -105,7 +105,7 @@ def generate_launch_description():
               {'laser_scan_dir': True},
               {'enable_angle_crop_func': True},
               {'angle_crop_min': 270.0},
-              {'angle_crop_max': 360.0}]
+              {'angle_crop_max': 450.0}]
         ),
         Node(
             package='tf2_ros',
