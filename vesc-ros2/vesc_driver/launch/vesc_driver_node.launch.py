@@ -36,6 +36,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
+import xacro
 
 def generate_launch_description():
 
@@ -59,6 +60,11 @@ def generate_launch_description():
         'config',
         'odom_to_tf.yaml'
         )
+    robot_descript = os.path.join(
+        get_package_share_directory('vesc_driver'),
+        'description',
+        'robot.urdf.xacro'
+    )
     
     nav2_launch_file = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -75,6 +81,15 @@ def generate_launch_description():
                 'launch/online_async_launch.py')
             )
         )
+    
+    robot_description_config = xacro.process_file(robot_descript)
+    params = {'robot_description': robot_description_config.toxml()}
+    node_robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        output='screen',
+        parameters=[params]
+    )
 
     return LaunchDescription([
         DeclareLaunchArgument(
@@ -154,6 +169,7 @@ def generate_launch_description():
             name='odom_to_tf_node',
             parameters=[LaunchConfiguration("config_odom_tf")]
         ),
+        node_robot_state_publisher,
         nav2_launch_file,
         slam_toolbox_file
     ])
