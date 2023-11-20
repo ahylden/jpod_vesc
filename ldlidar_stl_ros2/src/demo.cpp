@@ -197,7 +197,8 @@ void  ToLaserscanMessagePublish(ldlidar::Points2D& src,  double lidar_spin_freq,
       }
 
       if (setting.enable_angle_crop_func) { // Angle crop setting, Mask data within the set angle range
-        if ((dir_angle >= setting.angle_crop_min) && (dir_angle <= setting.angle_crop_max)) {
+        //if ((dir_angle >= setting.angle_crop_min) && (dir_angle <= setting.angle_crop_max)) {
+        if (((dir_angle >= 0.0) && (dir_angle <= 90.0)) || (dir_angle >= 270.0)) { //removing angles -90 to +90 from scan, where robot blocks lidar
           range = std::numeric_limits<float>::quiet_NaN();
           intensity = std::numeric_limits<float>::quiet_NaN();
         }
