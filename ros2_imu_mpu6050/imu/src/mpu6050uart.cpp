@@ -312,7 +312,7 @@ private:
         full_data.orientation.y = f_cos * s_sin * t_cos + f_sin * s_cos * t_sin;
         full_data.orientation.z = f_cos * s_cos * t_sin - f_sin * s_sin * t_cos;
 
-        RCLCPP_INFO(this->get_logger(), "MPU6050: \n\tSequence: %llu"
+        /*RCLCPP_INFO(this->get_logger(), "MPU6050: \n\tSequence: %llu"
                                         "\n\tAcceleration(m/s^2): %6.3f %6.3f %6.3f; "
                                         "\n\tGyroscope(rad/s): %6.3f %6.3f %6.3f; "
                                         "\n\tEuler Angle(degree): %6.3f %6.3f %6.3f",
@@ -323,7 +323,7 @@ private:
                     full_data.angular_velocity.x,
                     full_data.angular_velocity.y,
                     full_data.angular_velocity.z,
-                    mRawImuData[6], mRawImuData[7], mRawImuData[8]);
+                    mRawImuData[6], mRawImuData[7], mRawImuData[8]);*/
         mPublisher->publish(full_data);
         // usleep(1000);
         mSeq++;
