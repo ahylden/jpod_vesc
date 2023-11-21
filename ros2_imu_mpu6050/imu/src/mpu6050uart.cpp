@@ -245,14 +245,14 @@ private:
 
         memcpy(&sData[0], &chrBuf[2], 8);
         switch (chrBuf[1]) {
-            case 0x51:
+            case 0x3B:
                 for (i = 0; i < 3; i++)
                     mAcceleration[i] = (float) sData[i] / 32768.0 * 16.0;
                 time(&now);
 //                printf("\r\nT:%s a:%6.3f %6.3f %6.3f ",
 //                       asctime(localtime(&now)), mAcceleration[0], mAcceleration[1], mAcceleration[2]);
                 break;
-            case 0x52:
+            case 0x43:
                 for (i = 0; i < 3; i++)
                     mGyroscope[i] = (float) sData[i] / 32768.0 * 2000.0;
 //                printf("w:%7.3f %7.3f %7.3f ", mGyroscope[0], mGyroscope[1], mGyroscope[2]);
