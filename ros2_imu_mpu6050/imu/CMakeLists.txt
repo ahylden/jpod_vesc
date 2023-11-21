@@ -30,7 +30,7 @@ endif()
 
 add_executable(${default_imu} ./src/mpu6050uart.cpp)
 #target_link_libraries(${default_imu} )
-file(GLOB ROS2_INCLUDE LIST_DIRECTORIES true "/opt/ros/foxy/include")
+file(GLOB ROS2_INCLUDE LIST_DIRECTORIES true "/opt/ros/humble/include")
 target_include_directories(${default_imu} PUBLIC 
 			   $<BUILD_INTERFACE:/${ROS2_INCLUDE}>)
 
