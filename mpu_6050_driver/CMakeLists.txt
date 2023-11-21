@@ -28,7 +28,7 @@ endif()
 
 add_executable(mpu_6050_driver scripts/imu_node.py)
 add_executable(mpu_6050_driver scripts/tf_broadcaster_imu.py)
-ament_target_dependencies(mpu_6050_driver rclcpp sensor_msgs msg)
+ament_target_dependencies(mpu_6050_driver rclcpp sensor_msgs)
 
 install(TARGETS
   mpu_6050_driver
