@@ -173,7 +173,7 @@ def generate_launch_description():
             package='imu',
             executable='mpu6050uart',
             name='imu'
-        )
+        ),
         node_robot_state_publisher,
         nav2_launch_file,
         slam_toolbox_file
