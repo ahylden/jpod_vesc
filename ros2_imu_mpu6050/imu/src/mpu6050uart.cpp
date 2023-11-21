@@ -27,7 +27,7 @@
 #define Gravity 9.801 //in China Mainland most area can use this value.
 #define DEGREE_TO_RAD 0.0174532925199 //Pi/180
 #define DEGREE_TO_RAD_HALF 0.00872664626 //Pi/360
-#define IMU_DEVICE_LOCATION "/dev/ttyTHS1" //for jetson user leave here as it is.
+#define IMU_DEVICE_LOCATION "/dev/ttyAMA0" //for jetson user leave here as it is.
 #define MPU_6050_TOPIC "mpu6050" //change mpu6050 topic name as your wish.
 #define MPU_NODE_NAME "imu_6050_node" //change as you wish.
 #define MPU_QUEUE_SIZE 10
