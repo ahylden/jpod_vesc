@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(mpu_6050_driver C CXX)
 
+set_target_properties(mpu_6050_driver PROPERTIES LINKER_LANGUAGE C)
+
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
