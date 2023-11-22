@@ -77,8 +77,8 @@ class ImuNode(Node):
         gyro_z = self.read_word_2c(GYRO_ZOUT_H) / 131.0
 
         # Load up the IMU message
-        o = imu_msg.orientation
-        o.x, o.y, o.z, o.w = 0.0
+        #o = imu_msg.orientation
+        #o.x, o.y, o.z, o.w = 0.0
 
         imu_msg.linear_acceleration.x = accel_x
         imu_msg.linear_acceleration.y = accel_y
