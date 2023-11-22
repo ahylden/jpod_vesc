@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(mpu_6050_driver)
+project(mpu_6050_driver C CXX)
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
