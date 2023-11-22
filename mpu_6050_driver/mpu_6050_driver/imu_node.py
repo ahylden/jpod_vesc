@@ -30,8 +30,8 @@ class ImuNode(Node):
 
         imu_timer_period = 0.02  # seconds
         temp_timer_period = 10  # seconds
-        self.timer = self.create_timer(imu_timer_period, self.publish_imu(self))
-        self.timer = self.create_timer(temp_timer_period, self.publish_temp(self))
+        self.timer = self.create_timer(imu_timer_period, self.publish_imu)
+        self.timer = self.create_timer(temp_timer_period, self.publish_temp)
     
     # read_word and read_word_2c from http://blog.bitify.co.uk/2013/11/reading-data-from-mpu-6050-on-raspberry.html
     def read_word(self, adr):
