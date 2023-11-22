@@ -169,11 +169,11 @@ def generate_launch_description():
             name='odom_to_tf_node',
             parameters=[LaunchConfiguration("config_odom_tf")]
         ),
-        Node(
-            package='mpu_6050_driver',
-            executable='imu_node',
-            name='imu'
-        ),
+        #Node(
+        #    package='mpu_6050_driver',
+        #    executable='imu_node',
+        #    name='imu'
+        #),
         node_robot_state_publisher
         #nav2_launch_file,
         #slam_toolbox_file
