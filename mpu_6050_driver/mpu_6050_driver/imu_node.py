@@ -91,8 +91,6 @@ class ImuNode(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    imu_node = ImuNode()
-
     bus = smbus.SMBus(rclpy.get_parameter('~bus', 1))
     ADDR = rclpy.get_parameter('~device_address', 0x68)
     if type(ADDR) == str:
@@ -100,6 +98,9 @@ def main(args=None):
 
     #IMU_FRAME = rclpy.get_parameter('~imu_frame', 'imu_link')
     IMU_FRAME = 'imu_link'
+
+    imu_node = ImuNode()
+    
     bus.write_byte_data(ADDR, PWR_MGMT_1, 0)
 
     rclpy.spin(imu_node)
