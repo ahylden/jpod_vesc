@@ -38,4 +38,4 @@ install(
   DIRECTORY scripts
   DESTINATION share/${PROJECT_NAME})
 
-ament_python_install_package(src)
+ament_python_install_package(${PROJECT_NAME})
