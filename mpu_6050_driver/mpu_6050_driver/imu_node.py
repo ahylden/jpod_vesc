@@ -18,15 +18,15 @@ ADDR = 0x68
 bus = smbus.SMBus(1)
 IMU_FRAME = 'imu_link'
 
-temp_pub = None
-imu_pub = None
+#temp_pub = None
+#imu_pub = None
 
 class ImuNode(Node):
 
     def __init__(self):
         super().__init__('imu_node')
-        self.temp_publisher_ = self.create_publisher(Temperature, 'temperature', 10)
-        self.imu_publisher_ = self.create_publisher(Imu, 'imu/data', 10)
+        self.temp_pub = self.create_publisher(Temperature, 'temperature', 10)
+        self.imu_pub = self.create_publisher(Imu, 'imu/data', 10)
 
         imu_timer_period = 0.02  # seconds
         temp_timer_period = 10  # seconds
@@ -52,7 +52,7 @@ class ImuNode(Node):
         temp_msg.header.frame_id = IMU_FRAME
         temp_msg.temperature = self.read_word_2c(TEMP_H)/340.0 + 36.53
         temp_msg.header.stamp = self.get_clock().now().to_msg()
-        temp_pub.publish(temp_msg)
+        self.temp_pub.publish(temp_msg)
 
 
     def publish_imu(self, timer_event):
@@ -90,7 +90,7 @@ class ImuNode(Node):
 
         imu_msg.header.stamp = self.get_clock().now().to_msg()
 
-        imu_pub.publish(imu_msg)
+        self.imu_pub.publish(imu_msg)
 
 def main(args=None):
     rclpy.init(args=args)
