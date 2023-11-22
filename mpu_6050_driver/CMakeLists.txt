@@ -1,13 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(mpu_6050_driver C CXX)
 
-set_target_properties(mpu_6050_driver PROPERTIES LINKER_LANGUAGE C)
-
-# Default to C++14
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -36,10 +29,6 @@ endif()
 
 add_executable(mpu_6050_driver scripts/imu_node.py)
 ament_target_dependencies(mpu_6050_driver rclcpp sensor_msgs)
-
-file(GLOB ROS2_INCLUDE LIST_DIRECTORIES true "/opt/ros/humble/include")
-target_include_directories(mpu_6050_driver PUBLIC 
-			   $<BUILD_INTERFACE:/${ROS2_INCLUDE}>)
 
 install(TARGETS
   mpu_6050_driver
