@@ -91,7 +91,8 @@ class ImuNode(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    bus = smbus.SMBus(rclpy.get_parameter('~bus', 1))
+    #bus = smbus.SMBus(rclpy.get_parameter('~bus', 1))
+    bus = 1
     #ADDR = rclpy.parameter('~device_address', 0x68)
     ADDR = 0x68
     if type(ADDR) == str:
