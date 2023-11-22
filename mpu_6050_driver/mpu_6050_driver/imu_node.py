@@ -47,7 +47,7 @@ class ImuNode(Node):
         else:
             return val
 
-    def publish_temp(self, timer_event):
+    def publish_temp(self):
         temp_msg = Temperature()
         temp_msg.header.frame_id = IMU_FRAME
         temp_msg.temperature = self.read_word_2c(TEMP_H)/340.0 + 36.53
@@ -55,7 +55,7 @@ class ImuNode(Node):
         self.temp_pub.publish(temp_msg)
 
 
-    def publish_imu(self, timer_event):
+    def publish_imu(self):
         imu_msg = Imu()
         imu_msg.header.frame_id = IMU_FRAME
 
