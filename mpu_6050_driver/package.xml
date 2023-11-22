@@ -28,7 +28,6 @@
   <exec_depend>python-numpy</exec_depend>
   <exec_depend>python-smbus</exec_depend>
   <exec_depend>message_runtime</exec_depend>
-  <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>tf</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
