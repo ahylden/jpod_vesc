@@ -15,7 +15,7 @@ from mpu_6050_driver.registers import PWR_MGMT_1, ACCEL_XOUT_H, ACCEL_YOUT_H, AC
 #IMU_FRAME = None
 
 ADDR = 0x68
-bus = 1
+bus = None
 IMU_FRAME = 'imu_link'
 
 temp_pub = None
@@ -95,8 +95,7 @@ class ImuNode(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    #bus = smbus.SMBus(rclpy.get_parameter('~bus', 1))
-    bus = 1
+    bus = smbus.SMBus(1)
     #ADDR = rclpy.parameter('~device_address', 0x68)
     ADDR = 0x68
     if type(ADDR) == str:
