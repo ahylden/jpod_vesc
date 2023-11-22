@@ -51,7 +51,7 @@ class ImuNode(Node):
         temp_msg = Temperature()
         temp_msg.header.frame_id = IMU_FRAME
         temp_msg.temperature = self.read_word_2c(TEMP_H)/340.0 + 36.53
-        temp_msg.header.stamp = self.get_clock().now()
+        temp_msg.header.stamp = self.get_clock().now().to_msg()
         temp_pub.publish(temp_msg)
 
 
@@ -88,7 +88,7 @@ class ImuNode(Node):
         imu_msg.angular_velocity.y = gyro_y
         imu_msg.angular_velocity.z = gyro_z
 
-        imu_msg.header.stamp = self.get_clock().now()
+        imu_msg.header.stamp = self.get_clock().now().to_msg()
 
         imu_pub.publish(imu_msg)
 
