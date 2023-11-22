@@ -21,6 +21,7 @@
   <build_depend>python-numpy</build_depend>
 
   <depend>rclcpp</depend>
+  <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
 
   <run_depend>i2c-tools</run_depend>
