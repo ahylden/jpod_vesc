@@ -98,7 +98,8 @@ def main(args=None):
     if type(ADDR) == str:
         ADDR = int(ADDR, 16)
 
-    IMU_FRAME = rclpy.get_parameter('~imu_frame', 'imu_link')
+    #IMU_FRAME = rclpy.get_parameter('~imu_frame', 'imu_link')
+    IMU_FRAME = 'imu_link'
     bus.write_byte_data(ADDR, PWR_MGMT_1, 0)
 
     rclpy.spin(imu_node)
