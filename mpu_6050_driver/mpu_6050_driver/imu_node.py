@@ -10,9 +10,13 @@ from sensor_msgs.msg import Temperature, Imu
 from mpu_6050_driver.registers import PWR_MGMT_1, ACCEL_XOUT_H, ACCEL_YOUT_H, ACCEL_ZOUT_H, TEMP_H,\
     GYRO_XOUT_H, GYRO_YOUT_H, GYRO_ZOUT_H
 
-ADDR = None
-bus = None
-IMU_FRAME = None
+#ADDR = None
+#bus = None
+#IMU_FRAME = None
+
+ADDR = 0x68
+bus = 1
+IMU_FRAME = 'imu_link'
 
 temp_pub = None
 imu_pub = None
