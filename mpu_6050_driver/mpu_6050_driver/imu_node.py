@@ -92,11 +92,12 @@ def main(args=None):
     rclpy.init(args=args)
 
     bus = smbus.SMBus(rclpy.get_parameter('~bus', 1))
-    ADDR = rclpy.get_parameter('~device_address', 0x68)
+    #ADDR = rclpy.parameter('~device_address', 0x68)
+    ADDR = 0x68
     if type(ADDR) == str:
         ADDR = int(ADDR, 16)
 
-    #IMU_FRAME = rclpy.get_parameter('~imu_frame', 'imu_link')
+    #IMU_FRAME = rclpy.parameter('~imu_frame', 'imu_link')
     IMU_FRAME = 'imu_link'
 
     imu_node = ImuNode()
