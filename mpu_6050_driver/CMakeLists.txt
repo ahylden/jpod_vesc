@@ -13,7 +13,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 # find dependencies
-find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -37,6 +37,10 @@ endif()
 add_executable(mpu_6050_driver scripts/imu_node.py)
 ament_target_dependencies(mpu_6050_driver rclcpp sensor_msgs)
 
+file(GLOB ROS2_INCLUDE LIST_DIRECTORIES true "/opt/ros/humble/include")
+target_include_directories(mpu_6050_driver PUBLIC 
+			   $<BUILD_INTERFACE:/${ROS2_INCLUDE}>)
+
 install(TARGETS
   mpu_6050_driver
   DESTINATION lib/${PROJECT_NAME})
@@ -45,4 +49,4 @@ install(
   DIRECTORY scripts
   DESTINATION share/${PROJECT_NAME})
 
-ament_package()
+ament_python_install_package()
