@@ -7,7 +7,6 @@ import rclpy
 from rclpy.node import Node
 import numpy as np
 from sensor_msgs.msg import Temperature, Imu
-from tf2.transformations import quaternion_about_axis
 from mpu_6050_driver.registers import PWR_MGMT_1, ACCEL_XOUT_H, ACCEL_YOUT_H, ACCEL_ZOUT_H, TEMP_H,\
     GYRO_XOUT_H, GYRO_YOUT_H, GYRO_ZOUT_H
 
@@ -52,7 +51,6 @@ def publish_imu(timer_event, Node):
     acceln = accel / np.linalg.norm(accel)
     axis = np.cross(acceln, ref)
     angle = np.arccos(np.dot(acceln, ref))
-    orientation = quaternion_about_axis(angle, axis)
 
     # Read the gyro vals
     gyro_x = read_word_2c(GYRO_XOUT_H) / 131.0
@@ -61,7 +59,7 @@ def publish_imu(timer_event, Node):
     
     # Load up the IMU message
     o = imu_msg.orientation
-    o.x, o.y, o.z, o.w = orientation
+    o.x, o.y, o.z, o.w = 0.0
 
     imu_msg.linear_acceleration.x = accel_x
     imu_msg.linear_acceleration.y = accel_y
