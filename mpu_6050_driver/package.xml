@@ -17,9 +17,12 @@
 
 
   <buildtool_depend>catkin</buildtool_depend>
-   <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
 
   <build_depend>python-numpy</build_depend>
+
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
 
   <run_depend>i2c-tools</run_depend>
   <run_depend>python-numpy</run_depend>
