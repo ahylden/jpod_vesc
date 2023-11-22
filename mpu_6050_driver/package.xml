@@ -24,12 +24,12 @@
   <depend>rclpy</depend>
   <depend>sensor_msgs</depend>
 
-  <run_depend>i2c-tools</run_depend>
-  <run_depend>python-numpy</run_depend>
-  <run_depend>python-smbus</run_depend>
-  <run_depend>message_runtime</run_depend>
-  <run_depend>sensor_msgs</run_depend>
-  <run_depend>tf</run_depend>
+  <exec_depend>i2c-tools</exec_depend>
+  <exec_depend>python-numpy</exec_depend>
+  <exec_depend>python-smbus</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>tf</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
