@@ -175,6 +175,6 @@ def generate_launch_description():
             name='imu'
         ),
         node_robot_state_publisher
-        #nav2_launch_file,
-        #slam_toolbox_file
+        nav2_launch_file,
+        slam_toolbox_file
     ])
