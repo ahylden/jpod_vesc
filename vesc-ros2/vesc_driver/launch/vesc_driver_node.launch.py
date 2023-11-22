@@ -174,7 +174,7 @@ def generate_launch_description():
             executable='imu_node',
             name='imu'
         ),
-        node_robot_state_publisher
+        node_robot_state_publisher,
         nav2_launch_file,
         slam_toolbox_file
     ])
