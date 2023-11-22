@@ -83,8 +83,8 @@ class ImuNode(Node):
 
     def __init__(self):
         super().__init__('imu_node')
-        self.temp_publisher_ = self.create_publisher('temperature', Temperature, 10)
-        self.imu_publisher_ = self.create_publisher('imu/data', Imu, 10)
+        self.temp_publisher_ = self.create_publisher(Temperature, 'temperature', 10)
+        self.imu_publisher_ = self.create_publisher(Imu, 'imu/data', 10)
 
         imu_timer_period = 0.02  # seconds
         temp_timer_period = 10  # seconds
