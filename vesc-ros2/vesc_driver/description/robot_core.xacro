@@ -13,7 +13,7 @@
     <xacro:property name="wheel_offset_z" value="0.089"/>
     <xacro:property name="caster_wheel_radius" value="0.075"/>
     <xacro:property name="caster_wheel_mass" value="0.01"/>
-    <xacro:property name="caster_wheel_offset_x" value="0.100"/>
+    <xacro:property name="caster_wheel_offset_x" value="0.150"/>
     <xacro:property name="caster_wheel_offset_y" value="0.0"/>
     <xacro:property name="caster_wheel_offset_z" value=".089"/>
 
@@ -128,6 +128,29 @@
     </joint>
 
     <link name="fcaster_wheel">
+        <visual>
+            <geometry>
+                <cylinder radius="${caster_wheel_radius}" length="${wheel_thickness}"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+        <collision>
+            <geometry>
+                <sphere radius="${caster_wheel_radius}"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- CASTER WHEEL LINK -->
+
+    <joint name="rcaster_wheel_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="rcaster_wheel"/>
+        <origin xyz="${-caster_wheel_offset_x} 0 0" rpy="${pi/2} 0 0" />
+        <axis xyz="0 0 -1"/>
+    </joint>
+
+    <link name="rcaster_wheel">
         <visual>
             <geometry>
                 <cylinder radius="${caster_wheel_radius}" length="${wheel_thickness}"/>
