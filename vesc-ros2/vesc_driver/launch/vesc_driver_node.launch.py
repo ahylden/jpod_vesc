@@ -135,34 +135,34 @@ def generate_launch_description():
             executable='odometry_estimator',
             name='odometry_estimator_node'
         ),
+        #DeclareLaunchArgument(
+        #    name="config_odom_tf",
+        #    default_value=odom_to_tf_config,
+        #    description="Odom transform yaml configuration file.",
+        #),
+        #Node(
+        #    package='odom_to_tf_ros2',
+        #    executable='odom_to_tf',
+        #    name='odom_to_tf_node',
+        #    parameters=[LaunchConfiguration("config_odom_tf")]
+        #),
+        Node(
+            package='mpu_6050_driver',
+            executable='imu_node',
+            name='imu'
+        ),
         DeclareLaunchArgument(
-            name="config_odom_tf",
-            default_value=odom_to_tf_config,
-            description="Odom transform yaml configuration file.",
+            name="config_local",
+            default_value=robot_local_config,
+            description="Robot localization yaml configuration file.",
         ),
         Node(
-            package='odom_to_tf_ros2',
-            executable='odom_to_tf',
-            name='odom_to_tf_node',
-            parameters=[LaunchConfiguration("config_odom_tf")]
+            package='robot_localization',
+            executable='ekf_node',
+            name='ekf_filter_node',
+            output='screen',
+            parameters=[LaunchConfiguration("config_local")]
         ),
-        #Node(
-        #    package='mpu_6050_driver',
-        #    executable='imu_node',
-        #    name='imu'
-        #),
-        #DeclareLaunchArgument(
-        #    name="config_local",
-        #    default_value=robot_local_config,
-        #    description="Robot localization yaml configuration file.",
-        #),
-        #Node(
-        #    package='robot_localization',
-        #    executable='ekf_node',
-        #    name='ekf_filter_node',
-        #    output='screen',
-        #    parameters=[LaunchConfiguration("config_local")]
-        #),
         node_robot_state_publisher,
         nav2_launch_file,
         slam_toolbox_file
