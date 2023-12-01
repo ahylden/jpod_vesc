@@ -122,7 +122,7 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='base_link_to_base_laser_ld19',
-            arguments=['0.314','0','0.18','3.15','0','0','base_link','base_laser'] #yaw 3.15
+            arguments=['0.314','0','0.127','3.15','0','0','base_link','base_laser'] #yaw 3.15
         ),
         Node(
             package='tf2_ros',
