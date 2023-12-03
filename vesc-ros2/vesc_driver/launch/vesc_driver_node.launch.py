@@ -56,6 +56,14 @@ def generate_launch_description():
             )
         )
     
+    imu_launch_file = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory('bno055'),
+                'launch/bno055.launch.py')
+            )
+        )
+    
     slam_toolbox_file = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             os.path.join(
@@ -151,16 +159,16 @@ def generate_launch_description():
             name='odom_to_tf_node',
             parameters=[LaunchConfiguration("config_odom_tf")]
         ),
-        DeclareLaunchArgument(
-            name="imu_config",
-            default_value=imu_config,
-            description="IMU yaml configuration file.",
-        ),
-        Node(
-            package = 'bno055',
-            executable = 'bno055',
-            parameters = [imu_config]
-        ),
+        #DeclareLaunchArgument(
+        #    name="imu_config",
+        #    default_value=imu_config,
+        #    description="IMU yaml configuration file.",
+        #),
+        #Node(
+        #    package = 'bno055',
+        #    executable = 'bno055',
+        #    parameters = [imu_config]
+        #),
         #Node(
         #    package='mpu_6050_driver',
         #    executable='imu_node',
@@ -179,6 +187,7 @@ def generate_launch_description():
         #    parameters=[LaunchConfiguration("config_local")]
         #),
         node_robot_state_publisher,
+        imu_launch_file,
         nav2_launch_file,
         slam_toolbox_file
     ])
