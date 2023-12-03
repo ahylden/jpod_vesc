@@ -34,8 +34,8 @@ def generate_launch_description():
     ld = LaunchDescription()
     config = os.path.join(
         get_package_share_directory('bno055'),
-        'config',
-        'bno055_params.yaml'
+        'params',
+        'bno055_params_i2c.yaml'
         )
         
     node=Node(
