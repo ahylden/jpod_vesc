@@ -42,6 +42,11 @@ def generate_launch_description():
         'params',
         'ekf.yaml'
         )
+    imu_config = os.path.join(
+        get_package_share_directory('bno055'),
+        'config',
+        'bno055_params_i2c.yaml'
+        ),
     
     nav2_launch_file = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -146,6 +151,16 @@ def generate_launch_description():
             name='odom_to_tf_node',
             parameters=[LaunchConfiguration("config_odom_tf")]
         ),
+        DeclareLaunchArgument(
+            name="imu_config",
+            default_value=imu_config,
+            description="IMU yaml configuration file.",
+        ),
+        Node(
+            package = 'bno055',
+            executable = 'bno055',
+            parameters = [config]
+        )
         #Node(
         #    package='mpu_6050_driver',
         #    executable='imu_node',
