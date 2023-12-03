@@ -160,7 +160,7 @@ def generate_launch_description():
             package = 'bno055',
             executable = 'bno055',
             parameters = [config]
-        )
+        ),
         #Node(
         #    package='mpu_6050_driver',
         #    executable='imu_node',
